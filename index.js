@@ -12,7 +12,7 @@ const getTruncatedTime = () => {
 	const currentTime = new Date();
 	const d = new Date(currentTime);
 
-	d.setMinutes(Math.floor(d.getMinutes() / 15) * 15);
+	d.setMinutes(Math.floor(d.getMinutes() / 10) * 10);
 	d.setSeconds(0);
 	d.setMilliseconds(0);
 
