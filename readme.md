@@ -1,4 +1,11 @@
-* setup.sh
-* run.sh
-* http://localhost:3000
-* teardown.sh
+Requirements:
+
+* terraform
+* npm
+
+Try it:
+
+* terraform init
+* terraform apply
+* open the url
+* terraform destroy
