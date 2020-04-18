@@ -1,7 +1,7 @@
 provider "aws" {
 }
 
-# S3 buckets
+# S3 bucket
 
 resource "aws_s3_bucket" "bucket" {
   force_destroy = "true"
@@ -19,18 +19,19 @@ resource "random_id" "id" {
   byte_length = 8
 }
 
+# run npm ci
 data "external" "frontend_build" {
-	program = ["bash", "-c", <<EOT
+  program = ["bash", "-c", <<EOT
 (npm ci) >&2 && echo "{\"dest\": \"\"}"
 EOT
-]
-	working_dir = "${path.module}/src"
+  ]
+  working_dir = "${path.module}/src"
 }
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
   output_path = "/tmp/${random_id.id.hex}-lambda.zip"
-	source_dir  = "${data.external.frontend_build.working_dir}/${data.external.frontend_build.result.dest}"
+  source_dir  = "${data.external.frontend_build.working_dir}/${data.external.frontend_build.result.dest}"
 }
 
 resource "aws_lambda_function" "signer_lambda" {
